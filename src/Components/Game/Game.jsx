@@ -74,18 +74,26 @@ const Game = () => {
       eventMsg = `💀 Голод! Померло ${deaths} жителів.`;
     }
 
-    if (turn > 20 && eventRoll < 0.1) {
-      const enemyStrength = Math.floor(turn * 0.5) + 1;
+    if (turn > 7 && eventRoll < 0.5) {
+      const enemyStrength = Math.floor(turn * 1.2) + 3;
       
       if (newArmy >= enemyStrength) {
         const loot = Math.floor(enemyStrength * 10);
         newGold += loot;
         eventMsg = `⚔️ Легка перемога! Вороги розбіглися. (+${loot} золота)`;
       } else {
-        const damage = enemyStrength - newArmy;
-        newGold = Math.max(0, newGold - (damage * 2));
-        newPop = Math.max(0, newPop - 1);
-        eventMsg = `🔥 Дрібна крадіжка. Вороги втекли.`;
+        const randomLoss = Math.floor(Math.random() * 6) + 5; 
+
+        const killedPop = Math.min(newPop, randomLoss);
+        newPop = Math.max(0, newPop - killedPop);
+5
+        const stolenGold = killedPop * 10;
+        newGold = Math.max(0, newGold - stolenGold);
+
+        const stolenFood = killedPop * 10;
+        newFood = Math.max(0, newFood - stolenFood);
+
+        eventMsg = `🔥 ПРОРИВ ВОРОГА! Вбито ${killedPop} жителів, вкрадено по ${stolenGold} їжі та золота!`;
       }
     }
 
