@@ -74,7 +74,7 @@ const Game = () => {
       eventMsg = `💀 Голод! Померло ${deaths} жителів.`;
     }
 
-    if (turn > 20 && eventRoll < 0.05) {
+    if (turn > 20 && eventRoll < 0.1) {
       const enemyStrength = Math.floor(turn * 0.5) + 1;
       
       if (newArmy >= enemyStrength) {
@@ -149,7 +149,7 @@ const Game = () => {
         <header className={styles.header}>
           <div className={styles.title}>
             <h1>Pocket Kingdom</h1>
-            <p className={styles.subtitle} style={{color: 'green', fontWeight: 'bold'}}>EASY MODE 🏖️</p>
+            <p className={styles.subtitle} style={{color: 'green', fontWeight: 'bold'}}>HUMANITAS 2025 🏖️</p>
           </div>
           <div className={styles.turnBadge}>
             ХІД: {turn}
