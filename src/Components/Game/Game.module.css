@@ -1,0 +1,319 @@
+/* PocketKingdom.module.css */
+
+.container {
+  min-height: 100vh;
+  background-color: #f1f5f9; /* Slate-100 */
+  padding: 2rem 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1e293b; /* Slate-800 */
+}
+
+.wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- Header --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title h1 {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: #312e81; /* Indigo-900 */
+  margin: 0;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.turnBadge {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  font-family: monospace;
+  font-weight: bold;
+  color: #4f46e5;
+}
+
+/* --- Resources Grid --- */
+.resourceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .resourceGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
+.resourceCard {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 4px solid transparent;
+}
+
+.borderYellow { border-color: #facc15; }
+.borderGreen { border-color: #22c55e; }
+.borderBlue { border-color: #60a5fa; }
+.borderRed { border-color: #ef4444; }
+
+.resHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.resValue {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.resSub {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+/* --- Main Layout --- */
+.mainGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .mainGrid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+.leftColumn {
+  grid-column: span 12;
+}
+
+.rightColumn {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .leftColumn { grid-column: span 7; }
+  .rightColumn { grid-column: span 5; }
+}
+
+/* --- Cards & Sections --- */
+.sectionCard {
+  background-color: white;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #334155;
+}
+
+/* --- Building List --- */
+.buildingList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.buildBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+  width: 100%;
+}
+
+.buildBtn:hover { filter: brightness(0.95); }
+
+.bgBlue { background-color: #eff6ff; }
+.bgGreen { background-color: #f0fdf4; }
+.bgYellow { background-color: #fefce8; }
+.bgRed { background-color: #fef2f2; }
+
+.buildInfo { display: flex; flex-direction: column; }
+.buildName { font-weight: bold; font-size: 0.9rem; }
+.buildDesc { font-size: 0.75rem; opacity: 0.8; }
+.buildCost {
+  font-family: monospace;
+  font-size: 0.75rem;
+  background: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #475569;
+}
+
+/* --- Recruit Section --- */
+.recruitBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fef2f2;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #fee2e2;
+}
+
+.recruitBtn {
+  background-color: #dc2626;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.recruitBtn:hover { background-color: #b91c1c; }
+.recruitBtn:active { transform: scale(0.98); }
+
+.emptyState {
+  text-align: center;
+  padding: 1rem;
+  color: #94a3b8;
+  font-style: italic;
+  background-color: #f8fafc;
+  border-radius: 0.75rem;
+}
+
+/* --- Logs --- */
+.logBox {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  padding: 1rem;
+  border-radius: 1rem;
+  height: 16rem;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.logItem {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #334155;
+  line-height: 1.4;
+}
+
+.logTurn {
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+/* --- Main Action Button --- */
+.mainBtn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.btnDefault { background-color: #4f46e5; }
+.btnDefault:hover { background-color: #4338ca; }
+
+.btnVictory { background-color: #eab308; animation: bounce 1s infinite; }
+.btnOver { background-color: #94a3b8; cursor: not-allowed; }
+
+.restartBtn {
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-weight: bold;
+  cursor: pointer;
+}
+.restartBtn:hover { text-decoration: underline; }
+
+/* --- Wonder / Victory Section --- */
+.wonderCard {
+  background-color: #faf5ff;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e9d5ff;
+  text-align: center;
+}
+
+.wonderTitle {
+  color: #581c87;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.wonderStats {
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #7e22ce;
+  margin-bottom: 0.75rem;
+}
+
+.successText { color: #16a34a; font-weight: bold; }
+
+.wonderBtn {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #9333ea;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+.wonderBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.wonderBtn:not(:disabled):hover { background-color: #7e22ce; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(-5%); }
+  50% { transform: translateY(0); }
+}
