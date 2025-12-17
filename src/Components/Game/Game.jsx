@@ -5,14 +5,14 @@ import styles from './Game.module.css';
 const Game = () => {
   const [resources, setResources] = useState({
     gold: 500,     
-    food: 500,     
+    food: 200,     
     population: 20, 
     army: 5,       
   });
 
   const [buildings, setBuildings] = useState({
-    farm: 2,       
-    mine: 1,       
+    farm: 0,       
+    mine: 0,       
     barracks: 0,
     houses: 2, 
   });
