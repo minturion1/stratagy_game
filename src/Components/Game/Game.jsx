@@ -4,37 +4,37 @@ import styles from './Game.module.css';
 
 const Game = () => {
   const [resources, setResources] = useState({
-    gold: 250,
-    food: 200,
-    population: 20,
-    army: 10,
+    gold: 500,     
+    food: 500,     
+    population: 20, 
+    army: 5,       
   });
 
   const [buildings, setBuildings] = useState({
-    farm: 1,
-    mine: 0,
+    farm: 2,       
+    mine: 1,       
     barracks: 0,
-    houses: 1,
+    houses: 2, 
   });
 
   const [turn, setTurn] = useState(1);
   const [gameOver, setGameOver] = useState(false);
   const [victory, setVictory] = useState(false);
-  const [logs, setLogs] = useState(["Ласкаво просимо, Ваша Величносте!"]);
+  const [logs, setLogs] = useState(["Ласкаво просимо! Королівство процвітає."]);
 
   const COSTS = {
-    farm: { gold: 50, food: 0 },
-    mine: { gold: 80, food: 20 },
-    barracks: { gold: 150, food: 50 },
-    houses: { gold: 30, food: 30 },
-    soldier: { gold: 20, food: 50 },
-    wonder: { gold: 1000, food: 1000, population: 50 } 
+    farm: { gold: 25, food: 0 },     
+    mine: { gold: 40, food: 10 },   
+    barracks: { gold: 50, food: 20 }, 
+    houses: { gold: 10, food: 10 },  
+    soldier: { gold: 10, food: 20 }, 
+    wonder: { gold: 2000, food: 2000, population: 100 }
   };
 
   const PRODUCTION = {
-    farm: 20,
-    mine: 15,
-    houseSpace: 8,
+    farm: 50,
+    mine: 40,
+    houseSpace: 10,
   };
 
   const addLog = (msg) => {
@@ -47,13 +47,16 @@ const Game = () => {
     setTurn(t => t + 1);
 
     const foodProd = buildings.farm * PRODUCTION.farm;
-    const goldProd = (buildings.mine * PRODUCTION.mine) + (resources.population * 1);
-    const foodCons = (resources.population * 2) + (resources.army * 3);
+    const goldProd = (buildings.mine * PRODUCTION.mine) + (resources.population * 3);
+    
+    const foodCons = (resources.population * 1) + (resources.army * 1);
     
     const maxPop = buildings.houses * PRODUCTION.houseSpace;
     let popChange = 0;
+    
     if (foodProd > foodCons && resources.population < maxPop) {
-      popChange = 1;
+      popChange = 3; 
+      if (resources.population + popChange > maxPop) popChange = maxPop - resources.population;
     }
 
     let newFood = resources.food + foodProd - foodCons;
@@ -71,17 +74,18 @@ const Game = () => {
       eventMsg = `💀 Голод! Померло ${deaths} жителів.`;
     }
 
-    if (turn > 5 && eventRoll < 0.25) {
-      const enemyStrength = Math.floor(turn * 1.2) + 2;
+    if (turn > 20 && eventRoll < 0.05) {
+      const enemyStrength = Math.floor(turn * 0.5) + 1;
+      
       if (newArmy >= enemyStrength) {
-        const loot = Math.floor(enemyStrength * 5);
+        const loot = Math.floor(enemyStrength * 10);
         newGold += loot;
-        eventMsg = `⚔️ Напад відбито! (+${loot} золота)`;
+        eventMsg = `⚔️ Легка перемога! Вороги розбіглися. (+${loot} золота)`;
       } else {
         const damage = enemyStrength - newArmy;
-        newGold = Math.max(0, newGold - (damage * 10));
-        newPop = Math.max(0, newPop - Math.floor(damage / 2));
-        eventMsg = `🔥 Нас пограбували! Втрати ресурсів і людей.`;
+        newGold = Math.max(0, newGold - (damage * 2));
+        newPop = Math.max(0, newPop - 1);
+        eventMsg = `🔥 Дрібна крадіжка. Вороги втекли.`;
       }
     }
 
@@ -91,7 +95,7 @@ const Game = () => {
 
     if (newPop <= 0) {
       setGameOver(true);
-      addLog("☠️ Королівство спорожніло. Гра закінчена.");
+      addLog("☠️ Королівство спорожніло.");
     }
   };
 
@@ -123,7 +127,7 @@ const Game = () => {
     const cost = COSTS.wonder;
     if (resources.gold >= cost.gold && resources.food >= cost.food && resources.population >= cost.population) {
       setVictory(true);
-      addLog("🏆 ВЕЛИКИЙ ЗАМОК ПОБУДОВАНО!");
+      addLog("🏆 ВЕЛИКИЙ ЗАМОК ПОБУДОВАНО! ЦЕ БУЛО ЛЕГКО!");
     }
   };
 
@@ -145,7 +149,7 @@ const Game = () => {
         <header className={styles.header}>
           <div className={styles.title}>
             <h1>Pocket Kingdom</h1>
-            <p className={styles.subtitle}>Стратегія управління</p>
+            <p className={styles.subtitle} style={{color: 'green', fontWeight: 'bold'}}>EASY MODE 🏖️</p>
           </div>
           <div className={styles.turnBadge}>
             ХІД: {turn}
@@ -178,14 +182,14 @@ const Game = () => {
             
             <div className={styles.sectionCard}>
               <h3 className={styles.sectionTitle}>
-                <Hammer size={20} color="#6366f1"/> Будівництво
+                <Hammer size={20} color="#6366f1"/> Будівництво (Розпродаж!)
               </h3>
               
               <div className={styles.buildingList}>
                 <button onClick={() => buyBuilding('houses')} className={`${styles.buildBtn} ${styles.bgBlue}`}>
                   <div className={styles.buildInfo}>
                     <span className={styles.buildName}>🏠 Будинок (Рівень {buildings.houses})</span>
-                    <span className={styles.buildDesc}>+5 місць</span>
+                    <span className={styles.buildDesc}>+{PRODUCTION.houseSpace} місць</span>
                   </div>
                   <div className={styles.buildCost}>🟡{COSTS.houses.gold} 🍏{COSTS.houses.food}</div>
                 </button>
@@ -224,13 +228,13 @@ const Game = () => {
                 <div className={styles.recruitBox}>
                   <div className={styles.buildInfo}>
                     <span className={styles.buildName} style={{color: '#7f1d1d'}}>Найняти Солдата</span>
-                    <span className={styles.buildDesc}>Потребує: 1 людину, {COSTS.soldier.gold} зол, {COSTS.soldier.food} їжі</span>
+                    <span className={styles.buildDesc}>Потребує: 1 люд, {COSTS.soldier.gold} зол, {COSTS.soldier.food} їжі</span>
                   </div>
                   <button onClick={recruitSoldier} className={styles.recruitBtn}>Найняти</button>
                 </div>
               ) : (
                 <div className={styles.emptyState}>
-                  Побудуйте казарму, щоб тренувати військо.
+                  Побудуйте казарму (це дешево).
                 </div>
               )}
             </div>
@@ -271,13 +275,13 @@ const Game = () => {
                  </div>
                  <h4 className={styles.wonderTitle}>Мета: Великий Замок</h4>
                  <div className={styles.wonderStats}>
-                    <p className={resources.gold >= 1000 ? styles.successText : ""}>Золото: {Math.floor(resources.gold)}/1000</p>
-                    <p className={resources.food >= 1000 ? styles.successText : ""}>Їжа: {Math.floor(resources.food)}/1000</p>
-                    <p className={resources.population >= 50 ? styles.successText : ""}>Люди: {resources.population}/50</p>
+                    <p className={resources.gold >= COSTS.wonder.gold ? styles.successText : ""}>Золото: {Math.floor(resources.gold)}/{COSTS.wonder.gold}</p>
+                    <p className={resources.food >= COSTS.wonder.food ? styles.successText : ""}>Їжа: {Math.floor(resources.food)}/{COSTS.wonder.food}</p>
+                    <p className={resources.population >= COSTS.wonder.population ? styles.successText : ""}>Люди: {resources.population}/{COSTS.wonder.population}</p>
                  </div>
                  <button 
                    onClick={buildWonder}
-                   disabled={resources.gold < 1000 || resources.food < 1000 || resources.population < 50}
+                   disabled={resources.gold < COSTS.wonder.gold || resources.food < COSTS.wonder.food || resources.population < COSTS.wonder.population}
                    className={styles.wonderBtn}
                  >
                    Побудувати!
