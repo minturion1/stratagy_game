@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Shield, Coins, Wheat, Users, Castle, Hammer, Sword } from 'lucide-react';
-// Імпортуємо модуль стилів
 import styles from './Game.module.css';
 
 const Game = () => {
-  // --- State ---
   const [resources, setResources] = useState({
-    gold: 100,
-    food: 100,
-    population: 10,
-    army: 0,
+    gold: 250,
+    food: 200,
+    population: 20,
+    army: 10,
   });
 
   const [buildings, setBuildings] = useState({
@@ -24,10 +22,9 @@ const Game = () => {
   const [victory, setVictory] = useState(false);
   const [logs, setLogs] = useState(["Ласкаво просимо, Ваша Величносте!"]);
 
-  // --- Config ---
   const COSTS = {
     farm: { gold: 50, food: 0 },
-    mine: { gold: 100, food: 20 },
+    mine: { gold: 80, food: 20 },
     barracks: { gold: 150, food: 50 },
     houses: { gold: 30, food: 30 },
     soldier: { gold: 20, food: 50 },
@@ -35,12 +32,11 @@ const Game = () => {
   };
 
   const PRODUCTION = {
-    farm: 15,
-    mine: 10,
-    houseSpace: 5,
+    farm: 20,
+    mine: 15,
+    houseSpace: 8,
   };
 
-  // --- Logic ---
   const addLog = (msg) => {
     setLogs(prev => [msg, ...prev].slice(0, 6));
   };
@@ -131,7 +127,6 @@ const Game = () => {
     }
   };
 
-  // --- Components ---
   const ResourceItem = ({ icon: Icon, label, value, sub, borderColorClass }) => (
     <div className={`${styles.resourceCard} ${borderColorClass}`}>
       <div className={styles.resHeader}>
@@ -147,7 +142,6 @@ const Game = () => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         
-        {/* Header */}
         <header className={styles.header}>
           <div className={styles.title}>
             <h1>Pocket Kingdom</h1>
@@ -158,7 +152,6 @@ const Game = () => {
           </div>
         </header>
 
-        {/* Resources */}
         <div className={styles.resourceGrid}>
           <ResourceItem 
             icon={Coins} label="Золото" value={Math.floor(resources.gold)} 
@@ -181,10 +174,8 @@ const Game = () => {
 
         <div className={styles.mainGrid}>
           
-          {/* Left Column */}
           <div className={styles.leftColumn}>
             
-            {/* Buildings */}
             <div className={styles.sectionCard}>
               <h3 className={styles.sectionTitle}>
                 <Hammer size={20} color="#6366f1"/> Будівництво
@@ -225,7 +216,6 @@ const Game = () => {
               </div>
             </div>
 
-            {/* Army */}
             <div className={styles.sectionCard}>
                <h3 className={styles.sectionTitle}>
                 <Sword size={20} color="#ef4444"/> Оборона
@@ -246,10 +236,8 @@ const Game = () => {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className={styles.rightColumn}>
             
-            {/* Logs */}
             <div className={styles.logBox}>
               {logs.map((log, i) => (
                 <div key={i} className={styles.logItem}>
@@ -259,7 +247,6 @@ const Game = () => {
               ))}
             </div>
 
-            {/* Action Button */}
             <button 
               onClick={handleNextTurn}
               disabled={gameOver || victory}
@@ -277,7 +264,6 @@ const Game = () => {
                </button>
             )}
 
-            {/* Wonder */}
             {!victory && !gameOver && (
               <div className={styles.wonderCard}>
                  <div style={{display:'flex', justifyContent:'center', color:'#9333ea', marginBottom: '8px'}}>
